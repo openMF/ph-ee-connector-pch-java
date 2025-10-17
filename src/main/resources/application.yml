@@ -1,0 +1,30 @@
+
+spring:
+  application:
+    name: vnext-camunda-workers
+
+app:
+  vnext:
+    base-url: ${VNEXT_BASE_URL:http://localhost:8390}
+    endpoints:
+      participant: /vnext/participant
+      partyinfo: /vnext/partyinfo
+      executetransfer: /vnext/executetransfer
+
+zeebe:
+  client:
+    broker:
+      gateway-address: ${ZEEBE_GATEWAY_ADDRESS:localhost:26500}
+    security:
+      plaintext: ${ZEEBE_PLAINTEXT:true}
+    worker:
+      default-name: vnext-rest-workers
+      default-poll-interval: 100ms
+      default-job-timeout: 60s
+
+logging:
+  level:
+    org.mifos.vnext.workers: DEBUG
+    io.camunda: INFO
+    # Agregar esto para ver los logs del despliegue de BPMN
+    org.mifos.vnext.workers.config.BpmnDeployer: INFO
